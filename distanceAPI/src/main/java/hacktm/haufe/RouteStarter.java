@@ -26,6 +26,8 @@ public class RouteStarter extends BaseRouteBuilder {
 //		registerSchemaValidationErrorHandler();
 		
 		rest("/distanceCar").get().to("direct:getGoogleDistance");
+		
+//		rest("/priceDiesel").get().to("direct:getPriceDiesel");
 
 				
 	}

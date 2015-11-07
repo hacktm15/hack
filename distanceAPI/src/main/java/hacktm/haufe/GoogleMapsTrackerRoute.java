@@ -1,6 +1,7 @@
 package hacktm.haufe;
 
 import hacktm.haufe.initial.BaseRouteBuilder;
+import hacktm.haufe.processors.CarDistanceProcessor;
 
 import org.apache.camel.Exchange;
 
@@ -14,43 +15,17 @@ public class GoogleMapsTrackerRoute extends BaseRouteBuilder {
     @Override
     public void configure() throws Exception {
     	
-    	String dest1="Timisoara";
-    	String dest2="Oradea";
-	    
-
-//	    onException(HttpOperationFailedException.class)
-//        	.handled(true)
-//        	.process(new Http4ErrorHandler())
-//        	.choice()
-//            	.when(exchangeProperty("status").isEqualTo(StatusCode.BAD_REQUEST.toString()))
-//	            	.process(new ErrorResponseGenerator("Wrong sapID format of ${header.id}", StatusCode.BAD_REQUEST))
-//	            .when(exchangeProperty("status").isEqualTo(StatusCode.FORBIDDEN.toString()))
-//               		.process(new ErrorResponseGenerator("Forbidden. Authentication and authorization failed. Missing or invalid client certificate.", StatusCode.FORBIDDEN))
-//                .when(exchangeProperty("status").isEqualTo(StatusCode.NOT_FOUND.toString()))
-//               		.process(new ErrorResponseGenerator("Nothing found for ${header.id}", StatusCode.NOT_FOUND));
-//	    http://localhost:4567/fha/distance?start=Oradea&dest=Timisoara
        from("direct:getGoogleDistance")
             .removeHeader(Exchange.HTTP_PATH)
             .removeHeader(Exchange.HTTP_QUERY)
-            .log("will call URL: "+ GOOGLE_URI_MAPS+RESPONSE_TYPE+"?origin="+dest1+"&destination="+dest2+"&key="+GOOGLE_API_KEY)
+            .log("will call URL: "+ GOOGLE_URI_MAPS+RESPONSE_TYPE+"?origin=${header.start}&destination=${header.dest}&key="+GOOGLE_API_KEY)
             .setHeader(Exchange.HTTP_URI, simple(GOOGLE_URI_MAPS+RESPONSE_TYPE+"?origin=${header.start}&destination=${header.dest}&key="+GOOGLE_API_KEY))
-//      	    .to(Constants.HTTP4_HTTPS_DUMMY_ENDPOINT)
             .to("jetty:dummy")
       	    .setProperty("distance", xpath("/DirectionsResponse/route/leg/distance/text/text()"))
       	    .log("${property.distance}")
-      	      .process(new ResponseProcessor())
-//      	    .setBody(simple("Distance ${property.distance}"))
-//      	    .to(Constants.HTTP4_HTTPS_DUMMY_ENDPOINT)
+      	    .process(new CarDistanceProcessor())
       	    
       	    ;
-//       	    .log("URI:  ${header.CamelHttpUri}")
-//       	    .process(new InstructorLinksAppenderProcessor())
-//       	    .choice()
-//               .when(validationEnabled())
-//               .to("xslt:xslt/transform-instructor.xsl?saxon=true")
-//               .to("validator:schema/instructor-v1.0.xsd")
-//               .log("VALIDATION: Validation succeeded");
-
     }
 
 }
