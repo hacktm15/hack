@@ -169,6 +169,7 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Properties\PublishProfiles\festivalGather.pubxml" />
     <None Include="Properties\PublishProfiles\TestServer.pubxml" />
   </ItemGroup>
   <PropertyGroup>
