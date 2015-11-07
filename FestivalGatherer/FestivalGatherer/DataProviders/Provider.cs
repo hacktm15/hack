@@ -14,10 +14,28 @@ namespace FestivalGatherer.DataProviders
         {
             var todayurl = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             todayurl=HttpUtility.UrlPathEncode(todayurl);
-            todayurl = string.Format("date_from={0}&size=100&title=festival", todayurl);
+            todayurl = string.Format("date_from={0}&size=100", todayurl);
+            return QuerryString(todayurl);
+        }
+
+        public static dynamic QuerryFestivalsByDate(string date)
+        {
+            date = HttpUtility.UrlPathEncode(date);
+            date = string.Format("date_from={0}&size=100", date);
+            return QuerryString(date);
+        }
+
+        public static dynamic QuerryFestivalsByPrice(string minPrice, string maxPrice)
+        {
+            var querryString = string.Format("price_from={0}&price_to={1}&size=100", minPrice,maxPrice);
+            return QuerryString(querryString);
+        }
+
+        private static dynamic QuerryString(string todayurl)
+        {
             string requestUrl = HmcSha1.Hash2("qXVl3oyM75QhQtz4", "MWR6cePblwXxSg38vqAzbJ2rg6u6ykcz", todayurl);
             var request = (HttpWebRequest) WebRequest.Create(requestUrl);
-            request.Accept="application/json;ver=2.0";
+            request.Accept = "application/json;ver=2.0";
             using (var response = (HttpWebResponse) request.GetResponse())
             {
                 Stream receiveStream = response.GetResponseStream();

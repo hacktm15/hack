@@ -10,14 +10,22 @@ namespace FestivalGatherer
         public static void Register(HttpConfiguration config)
         {
             config.Routes.MapHttpRoute(
-                name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
-            config.Routes.MapHttpRoute(
                 name: "Gather",
                 routeTemplate: "api/{controller}"
             );
+
+            config.Routes.MapHttpRoute(
+                name: "GatherByPrice",
+                routeTemplate: "api/{controller}/{minPrice}/{maxPrice}",
+                 defaults: new { minPrice = RouteParameter.Optional, maxPrice = RouteParameter.Optional }
+            );
+
+            config.Routes.MapHttpRoute(
+                name: "GatherByDate",
+                routeTemplate: "api/{controller}/{startDate}",
+                defaults: new { startDate =DateTime.Now}
+            );
+
             config.Routes.MapHttpRoute(
                name: "HashTest",
                routeTemplate: "api/{controller}/{apiKey}/{secretkey}/{querry}",

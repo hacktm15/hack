@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace FestivalGatherer.Models
@@ -9,25 +10,63 @@ namespace FestivalGatherer.Models
         {
             foreach (dynamic festival in festivals)
             {
-                var newFestival = new Festival();
-                newFestival.Name = festival.title;
-                var memberNames = festival.images.GetDynamicMemberNames() as IEnumerable<string>;
-                var imageName=memberNames.First();
-                newFestival.ImagePath=festival.images[imageName].versions.original.url;
-                newFestival.Location = festival.venue.address;
-                newFestival.Latitude = festival.latitude.ToString();
-                newFestival.Longitude = festival.longitude.ToString();
                 var performances = festival.performances as IEnumerable<dynamic>;
                 if (performances != null)
                 {
-                    var enumerable = performances as IList<dynamic> ?? performances.ToList();
-                    newFestival.Price = enumerable.First().price.ToString();
-                    var startDate = enumerable.First().start;
-                    var endDate = enumerable.Last().end;
-                    newFestival.StartDate = startDate;
-                    newFestival.EndDate= endDate;
+                    foreach (dynamic performance in performances)
+                    {
+                        var newFestival = new Festival();
+                        newFestival.Name = festival.title;
+                        var memberNames = festival.images.GetDynamicMemberNames() as IEnumerable<string>;
+                        var imageName = memberNames.First();
+                        newFestival.ImagePath = festival.images[imageName].versions.original.url;
+                        newFestival.Location = festival.venue.address;
+                        newFestival.Latitude = festival.latitude.ToString();
+                        newFestival.Longitude = festival.longitude.ToString();
+                        newFestival.Price = performance.price.ToString();
+                        var startDate = performance.start;
+                        var endDate = performance.end;
+                        newFestival.StartDate = startDate;
+                        newFestival.EndDate = endDate;
+                        Add(newFestival);
+                    }
+                  
                 }
-                Add(newFestival);
+              
+            }
+        }
+
+        public Festivals(dynamic festivals, string startDate)
+        {
+            foreach (dynamic festival in festivals)
+            {
+                var performances = festival.performances as IEnumerable<dynamic>;
+                if (performances != null)
+                {
+                    foreach (dynamic performance in performances)
+                    {
+                        var startDateTime = DateTime.Parse(startDate);
+                        var startDateTimePerformance = DateTime.Parse(performance.start);
+                        var result=DateTime.Compare(startDateTime, startDateTimePerformance);
+                        if (result >= 0)
+                        {
+                            continue;
+                        }
+                        var newFestival = new Festival();
+                        newFestival.Name = festival.title;
+                        var memberNames = festival.images.GetDynamicMemberNames() as IEnumerable<string>;
+                        var imageName = memberNames.First();
+                        newFestival.ImagePath = festival.images[imageName].versions.original.url;
+                        newFestival.Location = festival.venue.address;
+                        newFestival.Latitude = festival.latitude.ToString();
+                        newFestival.Longitude = festival.longitude.ToString();
+                        newFestival.Price = performance.price.ToString();
+                        newFestival.StartDate = performance.start;
+                        newFestival.EndDate = performance.end;
+                        Add(newFestival);
+                    }
+
+                }
             }
         }
     }

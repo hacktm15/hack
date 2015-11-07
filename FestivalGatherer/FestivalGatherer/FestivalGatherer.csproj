@@ -146,6 +146,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\GatherByDateController.cs" />
+    <Compile Include="Controllers\GatherByPriceController.cs" />
     <Compile Include="Controllers\GatherController.cs" />
     <Compile Include="Controllers\HashTestController.cs" />
     <Compile Include="DataProviders\Provider.cs" />

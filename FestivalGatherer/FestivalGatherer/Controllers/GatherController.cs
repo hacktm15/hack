@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System.Linq;
+using System.Net.Http;
 using System.Web.Helpers;
 using System.Web.Http;
 using FestivalGatherer.DataProviders;
@@ -21,6 +22,8 @@ namespace FestivalGatherer.Controllers
                 Content = new JsonContent(myFestivals)
             };
         }
+
+      
 
         //// GET api/values/5
         //public string Get(int id)
