@@ -149,6 +149,7 @@
     <Compile Include="Controllers\GatherController.cs" />
     <Compile Include="Controllers\HashTestController.cs" />
     <Compile Include="Controllers\HmcSha1.cs" />
+    <Compile Include="DataProviders\Provider.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
