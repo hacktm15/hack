@@ -1,0 +1,253 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<modelVersion>4.0.0</modelVersion>
+	<version>1.0-SNAPSHOT</version>
+	<groupId>hacktm.haufe</groupId>
+	<artifactId>distanceAPI</artifactId>
+	<packaging>war</packaging>
+	<name>distanceAPI Maven Webapp</name>
+
+	<!--This will be the name of the deploy/war file -->
+	<properties>
+		<deploy.name>distanceAPI</deploy.name>
+		<camel.version>2.15.2</camel.version>
+		<spring.version>4.1.5.RELEASE</spring.version>
+		<activemq.version>5.11.1</activemq.version>
+		<membrane.version>4.0.26</membrane.version>
+	</properties>
+
+	<repositories>
+		<repository>
+			<id>predic8-releases</id>
+			<url>http://repository.membrane-soa.org/content/groups/public</url>
+		</repository>
+	</repositories>
+
+	<dependencies>
+
+		<!--Membrane needed for Tomcat configuration -->
+		<dependency>
+			<groupId>org.membrane-soa.service-proxy</groupId>
+			<artifactId>service-proxy-war</artifactId>
+			<version>${membrane.version}</version>
+			<type>war</type>
+		</dependency>
+
+		<!--General spring/camel/maven dependencies -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.7</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-core</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-spring</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-servlet</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-jasypt</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-spring-javaconfig</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-saxon</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+
+		<!-- for non-SSL connections -->
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-jetty9</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+		<!-- for SSL connections -->
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-http4</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-cache</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-swagger</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-xmljson</artifactId>
+			<version>${camel.version}</version>
+		</dependency>
+
+		<!-- Spring Dependencies -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+	</dependencies>
+
+	<profiles>
+
+		<profile>
+			<!-- To run this pl -DskipTests -->
+			<id>deployWar</id>
+			<build>
+				<plugins>
+					<plugin>
+						<!-- Copy War file and restart Tomcat Server after -->
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>1.7</version>
+						<executions>
+							<execution>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<phase>package</phase>
+								<configuration>
+									<target>
+										<echo message="Remove previous War-Version" />
+										<sshexec host="${server}" trust="yes" keyfile="${user.home}/id_rsa"
+											username="webadmin"
+											command="find  /var/lib/tomcat7/webapps/ -name '${deploy.name}*.war' -maxdepth 1 -exec rm {} \;" />
+										<echo message="Push ${deploy.name}.war  server" />
+										<echo message="Push ${project.build.finalName}.war to  server" />
+										<scp todir="webadmin@${server}:/var/lib/tomcat7/webapps/"
+											keyfile="${user.home}/id_rsa" file="target/${project.build.finalName}.war"
+											verbose="true" sftp="true" trust="yes">
+										</scp>
+										<!-- <echo message="Restart Tomcat ...." /> <sshexec host="${server}" 
+											trust="yes" keyfile="${user.home}/id_rsa" username="webadmin" command="sudo 
+											/etc/init.d/tomcat7 restart" /> -->
+									</target>
+								</configuration>
+							</execution>
+						</executions>
+
+						<dependencies>
+							<dependency>
+								<groupId>org.apache.ant</groupId>
+								<artifactId>ant-jsch</artifactId>
+								<version>1.8.2</version>
+							</dependency>
+							<dependency>
+								<groupId>com.jcraft</groupId>
+								<artifactId>jsch</artifactId>
+								<version>0.1.42</version>
+							</dependency>
+						</dependencies>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+	</profiles>
+
+	<build>
+		<finalName>${deploy.name}</finalName>
+
+		<plugins>
+
+			<plugin>
+				<groupId>org.eclipse.m2e</groupId>
+				<artifactId>lifecycle-mapping</artifactId>
+				<configuration>
+					<lifecycleMappingMetadata>
+						<pluginExecutions>
+							<pluginExecution>
+								<pluginExecutionFilter>
+									<groupId>org.appfuse</groupId>
+									<artifactId>
+										maven-warpath-plugin
+									</artifactId>
+									<versionRange>
+										[2.0.2,)
+									</versionRange>
+									<goals>
+										<goal>add-classes</goal>
+									</goals>
+								</pluginExecutionFilter>
+								<action>
+									<execute />
+								</action>
+							</pluginExecution>
+						</pluginExecutions>
+					</lifecycleMappingMetadata>
+				</configuration>
+			</plugin>
+		</plugins>
+
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.appfuse</groupId>
+										<artifactId>
+											maven-warpath-plugin
+										</artifactId>
+										<versionRange>
+											[2.0.2,)
+										</versionRange>
+										<goals>
+											<goal>add-classes</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<execute />
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
+	</build>
+
+</project> 
