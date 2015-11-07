@@ -7,12 +7,12 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{BBA9E083-6C96-47FA-919A-8E1A6353C1DD}</ProjectGuid>
+    <ProjectGuid>{F813D7AD-A4F1-455F-925B-0BA26948205B}</ProjectGuid>
     <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FestivalGatherer</RootNamespace>
-    <AssemblyName>FestivalGatherer</AssemblyName>
+    <RootNamespace>CrashHelper</RootNamespace>
+    <AssemblyName>CrashHelper</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
@@ -146,13 +146,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\GatherController.cs" />
-    <Compile Include="DataProviders\Provider.cs" />
+    <Compile Include="Controllers\FindController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Festival.cs" />
-    <Compile Include="Models\Festivals.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -166,17 +163,16 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FestivalTracker.Utilities\FestivalTracker.Utilities.csproj">
-      <Project>{0D6C1E23-2B8A-4538-A2A1-53EB2D26F210}</Project>
-      <Name>FestivalTracker.Utilities</Name>
-    </ProjectReference>
+    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Properties\PublishProfiles\festivalGather.pubxml" />
-    <None Include="Properties\PublishProfiles\TestServer.pubxml" />
+    <ProjectReference Include="..\FestivalTracker.Utilities\FestivalTracker.Utilities.csproj">
+      <Project>{0D6C1E23-2B8A-4538-A2A1-53EB2D26F210}</Project>
+      <Name>FestivalTracker.Utilities</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -194,9 +190,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>1894</DevelopmentServerPort>
+          <DevelopmentServerPort>10354</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:1894/</IISUrl>
+          <IISUrl>http://localhost:10354/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

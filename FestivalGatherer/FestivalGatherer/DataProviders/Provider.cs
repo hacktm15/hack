@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
 using System.Web;
 using System.Web.Helpers;
-using FestivalGatherer.Utilities;
+using FestivalTracker.Utilities.Utilities;
 
 namespace FestivalGatherer.DataProviders
 {
@@ -50,6 +51,26 @@ namespace FestivalGatherer.DataProviders
                     return festivals;
                 }
             }
+        }
+
+        public static dynamic QuerryFestivals(string minPrice, string maxPrice, string startDate)
+        {
+            string querryString = string.Empty;
+            if (!string.IsNullOrEmpty(minPrice))
+            {
+                querryString += string.Format("price_from={0}&", minPrice);
+            }
+            if (!string.IsNullOrEmpty(maxPrice))
+            {
+                querryString += string.Format("price_to={0}&", maxPrice);
+            }
+            if (!string.IsNullOrEmpty(startDate))
+            {
+                startDate = HttpUtility.UrlPathEncode(startDate);
+                querryString += string.Format("date_from={0}&", startDate);
+            }
+            querryString += "size=100";
+            return QuerryString(querryString);
         }
     }
 }

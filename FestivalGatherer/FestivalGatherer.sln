@@ -5,6 +5,10 @@ VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FestivalGatherer", "FestivalGatherer\FestivalGatherer.csproj", "{BBA9E083-6C96-47FA-919A-8E1A6353C1DD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrashHelper", "CrashHelper\CrashHelper.csproj", "{F813D7AD-A4F1-455F-925B-0BA26948205B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FestivalTracker.Utilities", "FestivalTracker.Utilities\FestivalTracker.Utilities.csproj", "{0D6C1E23-2B8A-4538-A2A1-53EB2D26F210}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{BBA9E083-6C96-47FA-919A-8E1A6353C1DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BBA9E083-6C96-47FA-919A-8E1A6353C1DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BBA9E083-6C96-47FA-919A-8E1A6353C1DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F813D7AD-A4F1-455F-925B-0BA26948205B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F813D7AD-A4F1-455F-925B-0BA26948205B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F813D7AD-A4F1-455F-925B-0BA26948205B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F813D7AD-A4F1-455F-925B-0BA26948205B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D6C1E23-2B8A-4538-A2A1-53EB2D26F210}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D6C1E23-2B8A-4538-A2A1-53EB2D26F210}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D6C1E23-2B8A-4538-A2A1-53EB2D26F210}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D6C1E23-2B8A-4538-A2A1-53EB2D26F210}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

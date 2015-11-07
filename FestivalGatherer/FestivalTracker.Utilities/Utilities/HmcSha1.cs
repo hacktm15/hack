@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace FestivalGatherer.Utilities
+namespace FestivalTracker.Utilities.Utilities
 {
     public static class HmcSha1
     {
