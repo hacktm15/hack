@@ -1,0 +1,25 @@
+{
+  "name": "Festival Tracker",
+  "homepage": "https://github.com/hacktm15/hack",
+  "authors": [
+    "Andrei Voicu <dreivoicu@gmail.com>"
+  ],
+  "description": "find the right festival for you",
+  "main": "index.html",
+  "moduleType": [],
+  "keywords": [
+    "festival",
+    "party"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#1.2.1"
+  }
+}
