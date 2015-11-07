@@ -1,0 +1,30 @@
+<link rel= "import" href="bower_components/polymer/polymer.html">
+<link rel="import" href="bower_components/iron-ajax/iron-ajax.html">
+
+<polymer-element name="contact-list">
+  
+  <template>
+      <iron-ajax
+        auto
+        url="http://www.filltext.com/"
+        params='{"rows": "3", "fname": "{firstName}", "lname": "{lastName}"'
+        handle-as="json"
+        lastResponse="{{handleResponse}}"
+        ></iron-ajax>
+        
+       <template repeat="{{person in people}}">
+        <div><span>{{person.fname}}</span></div>
+    </template>
+ </template>
+ 
+ <script>
+    Polymer({
+        is: "contact-list",
+        ready: function(){
+          console.log(handleResponse.lname);
+        }
+    });
+</script>
+</polymer-element>
+
+
