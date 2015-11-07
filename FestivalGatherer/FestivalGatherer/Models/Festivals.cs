@@ -15,6 +15,8 @@ namespace FestivalGatherer.Models
                 var imageName=memberNames.First();
                 newFestival.ImagePath=festival.images[imageName].versions.original.url;
                 newFestival.Location = festival.venue.address;
+                newFestival.Latitude = festival.latitude.ToString();
+                newFestival.Longitude = festival.longitude.ToString();
                 var performances = festival.performances as IEnumerable<dynamic>;
                 if (performances != null)
                 {
@@ -22,7 +24,8 @@ namespace FestivalGatherer.Models
                     newFestival.Price = enumerable.First().price.ToString();
                     var startDate = enumerable.First().start;
                     var endDate = enumerable.Last().end;
-                    newFestival.Date = startDate + "-" + endDate;
+                    newFestival.StartDate = startDate;
+                    newFestival.EndDate= endDate;
                 }
                 Add(newFestival);
             }
