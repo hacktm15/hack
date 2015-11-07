@@ -11,7 +11,7 @@ namespace CrashHelper
         {
             config.Routes.MapHttpRoute(
                name: "Find",
-               routeTemplate: "api/{controller}"
+               routeTemplate: "api/{controller}/{latitude}/{longitude}/{date}"
            );
 
             // Uncomment the following line of code to enable query support for actions with an IQueryable or IQueryable<T> return type.

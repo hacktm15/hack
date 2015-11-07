@@ -63,6 +63,7 @@ namespace FestivalGatherer.Models
                         newFestival.Price = performance.price.ToString();
                         newFestival.StartDate = performance.start;
                         newFestival.EndDate = performance.end;
+                        newFestival.FestivalUrl = festival.url;
                         Add(newFestival);
                     }
 
