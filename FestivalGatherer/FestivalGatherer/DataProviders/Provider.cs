@@ -3,6 +3,7 @@ using System.Net;
 using System.Text;
 using System.Web.Helpers;
 using FestivalGatherer.Controllers;
+using FestivalGatherer.Utilities;
 
 namespace FestivalGatherer.DataProviders
 {

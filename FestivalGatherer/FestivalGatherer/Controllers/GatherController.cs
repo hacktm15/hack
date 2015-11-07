@@ -1,7 +1,9 @@
-﻿using System.Web.Helpers;
+﻿using System.Net.Http;
+using System.Web.Helpers;
 using System.Web.Http;
 using FestivalGatherer.DataProviders;
 using FestivalGatherer.Models;
+using FestivalGatherer.Utilities;
 
 namespace FestivalGatherer.Controllers
 {
@@ -9,11 +11,15 @@ namespace FestivalGatherer.Controllers
     {
         // GET api/values
         [System.Web.Http.HttpGet]
-        public string Get()
+        public HttpResponseMessage Get()
         {
             var festivals = Provider.QuerryFestivals();
             var myFestivals = new Festivals(festivals);
-            return Json.Encode(myFestivals);
+            //return Json.Encode(myFestivals);
+            return new HttpResponseMessage()
+            {
+                Content = new JsonContent(myFestivals)
+            };
         }
 
         //// GET api/values/5

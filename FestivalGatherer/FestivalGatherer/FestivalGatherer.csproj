@@ -148,7 +148,6 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\GatherController.cs" />
     <Compile Include="Controllers\HashTestController.cs" />
-    <Compile Include="Controllers\HmcSha1.cs" />
     <Compile Include="DataProviders\Provider.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -156,6 +155,8 @@
     <Compile Include="Models\Festival.cs" />
     <Compile Include="Models\Festivals.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\HmcSha1.cs" />
+    <Compile Include="Utilities\JsonContent.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
