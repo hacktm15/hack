@@ -10,7 +10,6 @@ namespace LookingForGroup.Controllers
 {
     public class PartyController : ApiController
     {
-        // GET api/values
         [HttpPost]
         public HttpResponseMessage Post(GroupViewModel viewModel)
         {
@@ -23,7 +22,18 @@ namespace LookingForGroup.Controllers
                 };
             }
         }
-
+        [HttpGet]
+        public HttpResponseMessage Get(string festivalId)
+        {
+            using (var provider = new Provider())
+            {
+                var result = provider.QuerryByFestival(festivalId);
+                return new HttpResponseMessage
+                {
+                    Content = new JsonContent(result)
+                };
+            }
+        }
       
     }
 }

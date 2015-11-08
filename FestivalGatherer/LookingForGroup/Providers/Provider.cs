@@ -132,6 +132,10 @@ namespace LookingForGroup.Providers
         }
 
 
-       
+        public IEnumerable<Party> QuerryByFestival(string festivalId)
+        {
+            var parties = _context.Parties.Where(e => e.GroupInfo.FestivalId.Equals(festivalId));
+            return parties;
+        }
     }
 }

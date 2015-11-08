@@ -8,8 +8,8 @@ namespace LookingForGroup
         {
             config.Routes.MapHttpRoute(
                 name: "Party",
-                routeTemplate: "api/{controller}/{viewModel}",
-                defaults: new { viewModel =new ViewModels.GroupViewModel()}
+                routeTemplate: "api/{controller}/{viewModel}/{festivalId}",
+                defaults: new { viewModel = new ViewModels.GroupViewModel(), festivalId =RouteParameter.Optional}
             );
              config.Routes.MapHttpRoute(
                 name: "EditParty",
