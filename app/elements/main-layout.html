@@ -19,6 +19,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../bower_components/paper-material/paper-material.html">
 
 <!--
@@ -32,15 +33,31 @@ Left Nav + List + Detail
 
     <template>
         <!--
-
-        Ajax request
-
+        Ajax request for Festivals
         -->
         <iron-ajax
-                id="ajax"
+                id="ajaxFestivals"
                 url="http://cors.io/?u=http://festivalgather.azurewebsites.net/api/gather"
                 handle-as="json"
-                on-response="hresponse"
+                on-response="festivalResponse"
+                debounce-duration="300">
+        </iron-ajax>
+
+        <!-- TODO : this should not be hard coded -->
+        <iron-ajax
+                id="ajaxBookings"
+                url="http://cors.io/?u=http://couchfinder.azurewebsites.net/api/find/latitude/longitude/2015-11-11"
+                handle-as="json"
+                on-response="bookingsResponse"
+                debounce-duration="300">
+        </iron-ajax>
+
+        <!-- TODO : this should not be hard coded -->
+        <iron-ajax
+                id="ajaxFestivals"
+                url="http://cors.io/?u=http://festivalgather.azurewebsites.net/api/gather"
+                handle-as="json"
+                on-response="festivalResponse"
                 debounce-duration="300">
         </iron-ajax>
 
@@ -71,6 +88,7 @@ Left Nav + List + Detail
 
                     <!-- List Toolbar -->
                     <paper-toolbar>
+                        <div class="title">Festival Tracker</div>
                         <paper-icon-button icon="search" paper-drawer-toggle></paper-icon-button>
                     </paper-toolbar>
 
@@ -95,7 +113,9 @@ Left Nav + List + Detail
                 <paper-header-panel class="content-panel" main>
                     <!-- Description -->
                     <paper-material class="content-card selectedFestival" elevation="4">
-                        <h1 class="title">[[selectedFestival.Name]]</h1>
+                        <h1>Selected Festival : </h1>
+                        <br>
+                        <h2 class="title">[[selectedFestival.Name]]</h2>
                         <h3 class="location">[[selectedFestival.Location]]</h3>
                         <div>
                           <h3 class="start-date">[[selectedFestival.StartDate]]</h3>
@@ -103,30 +123,40 @@ Left Nav + List + Detail
                         </div>
                         <p class="description-details">[[selectedFestival.Description]]</p>
                          <div class="price-details">
-                           <h1 class="price">[[selectedFestival.Price]] €</h1>
-                             <a href="[[selectedFestival.FestivalUrl]]">Get tickets</a>
+                            <h1 class="price">[[selectedFestival.Price]] €</h1>
+                            <a href="[[selectedFestival.FestivalUrl]]" target="_blank">Get tickets</a>
                          </div>
                     </paper-material>
 
-                    <!-- Booking -->
-                    <paper-material class="content-card" elevation="4">
-                        <paper-item class="room-booking">
-                            <div >
-                                <div id="room-price">9.0€</div>
-                                <div id="beds-available">Beds: 2</div>
-                                <div id="availability">Availability</div>
-                                <paper-button id="book-now" raised class="fancy">Book now</paper-button>
-                            </div>
-                        </paper-item>
-                     
-                        <paper-item class="room-booking">test1</paper-item>
-                       
-                        <paper-item class="room-booking">test1</paper-item>
-                      
-                        <paper-item class="room-booking">test1</paper-item>
-                        
+                    <!-- Routes -->
+                    <paper-material class="content-card festivalRoutes" elevation="4">
+                        <h1>Routes : </h1>
+                        <br>
+                        <h1>Hello</h1>
                     </paper-material>
-                    
+
+                    <!-- Booking -->
+                    <paper-material class="content-card festivalBooking" elevation="4">
+                        <h1>Bookings : </h1>
+                        <br>
+                        <template is="dom-repeat" items="{{bookings}}">
+                            <paper-card heading="[[item.Address]]" class="pink">
+                                <div class="card-content">
+                                    <h2>Rooms : [[item.Beds]]</h2>
+                                    <ul>
+                                        <template is="dom-repeat" items="[[item.Availabilities]]">
+                                            <li>Start : [[item.Start]], End : [[item.End]]</li>
+                                        </template>
+                                    </ul>
+                                </div>
+                                <div class="card-actions">
+                                    <h1 class="price">[[item.Price]] €</h1>
+                                    <a href="[[item.Url]]" target="_blank">Book</a>
+                                </div>
+                            </paper-card>
+                        </template>
+                    </paper-material>
+
                     <!-- Main Toolbar -->
                     <paper-toolbar>
                         <paper-icon-button icon="arrow-back" list-toggle></paper-icon-button>
@@ -161,12 +191,23 @@ Left Nav + List + Detail
 
             ready: function () {
                 this.festivals = [];
+                this.bookings = [];
                 this.selectedFestival;
-                this.$.ajax.generateRequest();
+                this.$.ajaxFestivals.generateRequest();
+                this.$.ajaxBookings.generateRequest();
             },
-            hresponse: function(request) {
+
+            // Api for festivals
+            festivalResponse: function(request) {
                 console.log(request.detail.response);
                 this.festivals = request.detail.response;
+                this.selectedFestival = this.festivals[0];
+            },
+
+            // Api for boookings
+            bookingsResponse: function(request) {
+                console.log(request.detail.response);
+                this.bookings = request.detail.response;
             },
             festivalSelected: function(e) {
                 console.log(e.model.item);
