@@ -43,21 +43,27 @@ Left Nav + List + Detail
                 debounce-duration="300">
         </iron-ajax>
 
-        <!-- TODO : this should not be hard coded -->
         <iron-ajax
                 id="ajaxBookings"
-                url="http://cors.io/?u=http://couchfinder.azurewebsites.net/api/find/latitude/longitude/2015-11-11"
+                url=""
                 handle-as="json"
                 on-response="bookingsResponse"
                 debounce-duration="300">
         </iron-ajax>
 
-        <!-- TODO : this should not be hard coded -->
         <iron-ajax
-                id="ajaxFestivals"
-                url="http://cors.io/?u=http://festivalgather.azurewebsites.net/api/gather"
+                id="ajaxRoadRoutes"
+                url=""
                 handle-as="json"
-                on-response="festivalResponse"
+                on-response="festivalRoadResponse"
+                debounce-duration="300">
+        </iron-ajax>
+
+        <iron-ajax
+                id="ajaxAirRoutes"
+                url="http://cors.io/?u=http://akai-docker-host.cloudapp.net:8080/distanceAPI/api/"
+                handle-as="json"
+                on-response="festivalAirResponse"
                 debounce-duration="300">
         </iron-ajax>
 
@@ -113,36 +119,38 @@ Left Nav + List + Detail
                 <paper-header-panel class="content-panel" main>
                     <!-- Description -->
                     <paper-material class="content-card selectedFestival" elevation="4">
-                        <h1>Selected Festival : </h1>
+                        <h1>Festival</h1>
                         <br>
                         <h2 class="title">[[selectedFestival.Name]]</h2>
                         <h3 class="location">[[selectedFestival.Location]]</h3>
-                        <div>
-                          <h3 class="start-date">[[selectedFestival.StartDate]]</h3>
-                          <h3 class="end-date">[[selectedFestival.EndDate]]</h3>
-                        </div>
+                        <h3 class="start-date">[[selectedFestival.StartDate]]</h3>
                         <p class="description-details">[[selectedFestival.Description]]</p>
                          <div class="price-details">
                             <h1 class="price">[[selectedFestival.Price]] €</h1>
-                            <a href="[[selectedFestival.FestivalUrl]]" target="_blank">Get tickets</a>
+                            <a href="[[selectedFestival.FestivalUrl]]" target="_blank">
+                               <paper-button raised class="fancy" >
+                                Get tickets
+                               </paper-button>
+                           </a>
                          </div>
                     </paper-material>
 
                     <!-- Routes -->
                     <paper-material class="content-card festivalRoutes" elevation="4">
-                        <h1>Routes : </h1>
+                        <h1>Transport</h1>
                         <br>
-                        <h1>Hello</h1>
+                        <h1>Distance by road : {{roadRoute.distance}}</h1>
+                        <h1>Flight options : {{airRoute.flightCompany}}</h1>
                     </paper-material>
 
                     <!-- Booking -->
                     <paper-material class="content-card festivalBooking" elevation="4">
-                        <h1>Bookings : </h1>
+                        <h1>Bookings</h1>
                         <br>
                         <template is="dom-repeat" items="{{bookings}}">
                             <paper-card heading="[[item.Address]]" class="pink">
                                 <div class="card-content">
-                                    <h2>Rooms : [[item.Beds]]</h2>
+                                    <h2>Bedrooms : [[item.Beds]]</h2>
                                     <ul>
                                         <template is="dom-repeat" items="[[item.Availabilities]]">
                                             <li>Start : [[item.Start]], End : [[item.End]]</li>
@@ -151,7 +159,14 @@ Left Nav + List + Detail
                                 </div>
                                 <div class="card-actions">
                                     <h1 class="price">[[item.Price]] €</h1>
-                                    <a href="[[item.Url]]" target="_blank">Book</a>
+                                    
+                                       <a href="[[item.Url]]" target="_blank">
+                                           <paper-button raised class="fancy" >
+                                             Book
+                                           </paper-button>
+                                         </a>
+                                    
+                                    
                                 </div>
                             </paper-card>
                         </template>
@@ -192,9 +207,11 @@ Left Nav + List + Detail
             ready: function () {
                 this.festivals = [];
                 this.bookings = [];
+                this.roadRoute = [];
+                this.airRoute = [];
                 this.selectedFestival;
                 this.$.ajaxFestivals.generateRequest();
-                this.$.ajaxBookings.generateRequest();
+                this.$.ajaxRoadRoutes.generateRequest();
             },
 
             // Api for festivals
@@ -209,12 +226,31 @@ Left Nav + List + Detail
                 console.log(request.detail.response);
                 this.bookings = request.detail.response;
             },
+
+            // Api for road routes
+            festivalRoadResponse: function(request) {
+                console.log(request.detail.response);
+                this.roadRoute = request.detail.response;
+            },
+
+            // Api for air routes
+            festivalAirResponse: function(request) {
+                console.log(request.detail.response);
+                this.airRoute = request.detail.response;
+            },
             festivalSelected: function(e) {
                 console.log(e.model.item);
                 this.selectedFestival = e.model.item;
+                var boookingDate = this.selectedFestival.StartDate.split(" ")[0];
+
+                this.$.ajaxBookings.url="http://cors.io/?u=http://couchfinder.azurewebsites.net/api/find/latitude/longitude/" + boookingDate;
+                this.$.ajaxBookings.generateRequest();
+
+                /*this.$.ajaxRoadRoutes.url="http://cors.io/?u=http://akai-docker-host.cloudapp.net:8080/distanceAPI/api/distanceCar?start=Oradea&dest=Timisoara";
+                this.$.ajaxRoadRoutes.generateRequest();*/
             }
         });
 
     </script>
-
+    
 </dom-module>

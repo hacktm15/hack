@@ -21,10 +21,10 @@ public class SkyScannerTrackerRoute extends BaseRouteBuilder {
             .log("will call URL: "+ SKYS_URI_MAPS+"?origin=${header.start}&destination=${header.dest}&key="+SKYS_API_KEY)
             .setHeader(Exchange.CONTENT_TYPE, constant("application/json"))
             .process(new PreFlighProcessor())
-            .setHeader(Exchange.HTTP_URI, simple(SKYS_URI_MAPS+"/RO/EUR/en-GB/${header.start}/${header.dest}/${header.startDate}/${header.destDate}?apiKey="+SKYS_API_KEY))
+            .setHeader(Exchange.HTTP_URI, simple(SKYS_URI_MAPS+"RO/EUR/en-GB/${header.start}/${header.dest}/${header.startDate}/${header.destDate}?apiKey="+SKYS_API_KEY))
             .to("jetty:dummy")
-      	    .setProperty("price", xpath("/DirectionsResponse/route/leg/distance/text/text()"))
-      	    .log("${property.distance}")
+//      	    .setProperty("price", xpath("/DirectionsResponse/route/leg/distance/text/text()"))
+//      	    .log("${property.distance}")
       	    .process(new AirDistanceProcessor())
       	    
       	    ;

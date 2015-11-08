@@ -29,7 +29,7 @@ public class RouteStarter extends BaseRouteBuilder {
 		
 		rest("/api/distanceAir").get().to("direct:getAirRoute");
 		
-		rest("/priceDiesel").get().to("direct:getPriceDiesel");
+//		rest("/priceDiesel").get().to("direct:getPriceDiesel");
 		
 
 				
