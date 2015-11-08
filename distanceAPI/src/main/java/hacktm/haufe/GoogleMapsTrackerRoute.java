@@ -9,6 +9,8 @@ import org.apache.camel.Exchange;
 public class GoogleMapsTrackerRoute extends BaseRouteBuilder {
 	
 	private final String GOOGLE_API_KEY="AIzaSyBtjxSs8jtkIgYto7kvefTu9bZPq9zPGS0";
+//	private final String GOOGLE_API_KEY2="AIzaSyCdUPRmuwAzHGN0qSCqsIy9Y-w3dmVJBYg";
+
 	private final String GOOGLE_URI_MAPS="https://maps.googleapis.com/maps/api/directions/";
 	private final String RESPONSE_TYPE="xml";
 

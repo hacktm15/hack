@@ -2,27 +2,34 @@ package hacktm.haufe.processors;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
-import org.w3c.dom.Document;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Node;
 
 public class CarburantPriceProcessor implements Processor {
-	
+
+	private final Double EUR = 4.4523;
+
 	@Override
 	public void process(Exchange exchange) throws Exception {
-//		  int lastIndexOf = exchange.getIn().toString().lastIndexOf("Super 95 in Europe");
-//		  String sdf= exchange.getIn().toString().substring(lastIndexOf, lastIndexOf+100);
-		  
-		  String string = exchange.getIn().toString();
-//		  Document doc = Jsoup.parse(string);
-////		  
-//		  exchange.getIn().toString().split("Romania");
-//		
-//		String distance=((net.sf.saxon.dom.DOMNodeList) exchange.getProperty("distance")).item(0).getNodeValue();
-//		String val = distance.split(" km")[0];
-//		val=val.replace(",", "");
-//		
-//		Double dist=Double.parseDouble(val);
-//		
-//		String response= "Sup guys.. \"Team Not Again\" Rullllz.. .Ahhh btw:Distance by car= "+distance+" approximately "+(0.075*dist) + "EURO!";
-//		exchange.getOut().setBody(response);
+
+		String eurPrice = "1.12";
+
+		try {
+
+			String string = exchange.getIn().getBody(String.class);
+			Document parse = Jsoup.parse(string);
+			Node node = parse.childNode(1);
+			Node node2 = node.childNode(2);
+			Node childNode = node2.childNode(1);
+			String price = childNode.childNode(7).childNode(19).childNode(1)
+					.childNode(6).childNode(0).toString();
+			price = price.trim().split(" ")[0];
+			Double priceD = Double.parseDouble(price);
+			 eurPrice = String.format("%.2f", priceD / EUR);
+		} catch (Exception ex) {
+			System.out.println("site changed");
+		}
+		exchange.getOut().setBody(eurPrice);
 	}
 }
