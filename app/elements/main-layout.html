@@ -9,13 +9,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
-
+<link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/paper-drawer-panel/paper-drawer-panel.html">
 <link rel="import" href="../bower_components/paper-header-panel/paper-header-panel.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/paper-item/paper-item.html">
 <link rel="import" href="../bower_components/paper-menu/paper-menu.html">
 <link rel="import" href="../bower_components/paper-toolbar/paper-toolbar.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 
 <!--
 
@@ -27,6 +28,19 @@ Left Nav + List + Detail
     <link rel="import" type="css" href="main-layout.css">
 
     <template>
+        <!--
+
+        Ajax request
+
+        -->
+        <iron-ajax
+                id="ajax"
+                url="http://cors.io/?u=http://festivalgather.azurewebsites.net/api/gather"
+                handle-as="json"
+                on-response="hresponse"
+                debounce-duration="300">
+        </iron-ajax>
+
 
         <paper-drawer-panel id="navDrawerPanel" responsive-width="1280px">
 
@@ -47,15 +61,18 @@ Left Nav + List + Detail
 
                     <!-- List -->
                     <paper-menu class="list" on-iron-activate="_listTap">
-                        <paper-item>
-                            <paper-item-body two-line class="layout center">
-                                <img class="list-img" src="http://lorempixel.com/500/380/">
-                                <div secondary class="legend horizontal layout center">
-                                    Your status is visible to everyone
-                                </div>
-                                <div  class="list-img"></div>
-                            </paper-item-body>
-                        </paper-item>
+
+                        <template is="dom-repeat" items="{{festivals}}">
+                            <paper-item>
+                                <paper-item-body two-line class="layout center">
+                                    <img class="list-img" src="{{item.ImagePath}}">
+                                    <div secondary class="legend horizontal layout center">
+                                        <h3>{{item.Name}}</h3>
+                                    </div>
+                                    <div  class="list-img"></div>
+                                </paper-item-body>
+                            </paper-item>
+                        </template>
                     </paper-menu>
 
                 </paper-header-panel>
@@ -91,8 +108,16 @@ Left Nav + List + Detail
 
             _listTap: function() {
                 this.$.mainDrawerPanel.closeDrawer();
-            }
+            },
 
+            ready: function () {
+                this.festivals = [];
+                this.$.ajax.generateRequest();
+            },
+            hresponse: function(request) {
+                console.log(request.detail.response);
+                this.festivals = request.detail.response;
+            }
         });
 
     </script>
