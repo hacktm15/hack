@@ -4,6 +4,7 @@ namespace LookingForGroup.ViewModels
 {
     public class GroupViewModel
     {
+        public int GroupId { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
         public string RoomId { get; set; }
