@@ -64,3 +64,8 @@ paper-toolbar {
     padding: 0 16px;
     left: 0; right: 0;
 }
+
+paper-button.fancy {
+  background: #42A5F5;
+  color: #fff;
+}

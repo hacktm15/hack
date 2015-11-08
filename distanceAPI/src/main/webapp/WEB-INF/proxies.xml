@@ -42,7 +42,7 @@
         </web:servletTransport>
 
         <serviceProxy name="distance GET" method="GET">
-            <path isRegExp="true">/distance.*</path>
+            <path isRegExp="true">/api.*</path>
             <request>
             </request>
             <response>

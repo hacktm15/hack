@@ -17,6 +17,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-menu/paper-menu.html">
 <link rel="import" href="../bower_components/paper-toolbar/paper-toolbar.html">
 <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
 
 <!--
 
@@ -43,7 +45,19 @@ Left Nav + List + Detail
 
 
         <paper-drawer-panel id="navDrawerPanel" responsive-width="1280px">
-
+            <div drawer> 
+              <paper-input label="minPrice">
+                <div prefix>€</div>
+                <paper-icon-button suffix icon="clear"></paper-icon-button>
+              </paper-input>
+            
+              <paper-input label="maxPrice">
+                <div prefix>€</div>
+                <paper-icon-button suffix icon="clear"></paper-icon-button>
+              </paper-input>
+            
+              <paper-button raised class="fancy">Search</paper-button>
+            </div>
             <div class="nav" drawer>
                 <!-- Nav Content -->
             </div>
