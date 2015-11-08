@@ -11,7 +11,7 @@ namespace FestivalGatherer.Models
         {
             foreach (dynamic festival in festivals.events.@event)
             {
-                if (festival.image == null)
+                if (festival.image == null ||  festival.image.medium==null||festival.image.medium.url==null)
                 {
                     continue;
                 }
@@ -48,7 +48,7 @@ namespace FestivalGatherer.Models
                 newFestival.Longitude = festival.longitude.ToString();
                 newFestival.Price = priceString;
                 newFestival.StartDate = festival.start_time;
-                newFestival.FestivalUrl = festival.url;
+                newFestival.FestivalUrl = festival.image.medium.url;
                 newFestival.Description = festival.description;
                 Add(newFestival);
             }
