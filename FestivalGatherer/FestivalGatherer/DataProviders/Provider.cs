@@ -11,12 +11,13 @@ namespace FestivalGatherer.DataProviders
 {
     public class Provider
     {
-        private static dynamic QuerryString(string todayurl)
+        public static dynamic QuerryFestivals(string minPrice, string maxPrice, string startDate)
         {
-            string requestUrl = HmcSha1.Hash2("qXVl3oyM75QhQtz4", "MWR6cePblwXxSg38vqAzbJ2rg6u6ykcz", todayurl);
-            var request = (HttpWebRequest) WebRequest.Create(requestUrl);
-            request.Accept = "application/json;ver=2.0";
-            using (var response = (HttpWebResponse) request.GetResponse())
+            startDate = HttpUtility.UrlPathEncode(startDate);
+            var url = string.Format(
+                "http://api.eventful.com/json/events/search?app_key=VBbxVjCfdVBGnnHv&t>={0}&q=music", startDate);
+            var request = (HttpWebRequest)WebRequest.Create(url);
+            using (var response = (HttpWebResponse)request.GetResponse())
             {
                 Stream receiveStream = response.GetResponseStream();
                 if (receiveStream == null)
@@ -30,26 +31,6 @@ namespace FestivalGatherer.DataProviders
                     return festivals;
                 }
             }
-        }
-
-        public static dynamic QuerryFestivals(string minPrice, string maxPrice, string startDate)
-        {
-            string querryString = string.Empty;
-            if (!string.IsNullOrEmpty(minPrice))
-            {
-                querryString += string.Format("price_from={0}&", minPrice);
-            }
-            if (!string.IsNullOrEmpty(maxPrice))
-            {
-                querryString += string.Format("price_to={0}&", maxPrice);
-            }
-            if (!string.IsNullOrEmpty(startDate))
-            {
-                startDate = HttpUtility.UrlPathEncode(startDate);
-                querryString += string.Format("date_from={0}&", startDate);
-            }
-            querryString += "size=100";
-            return QuerryString(querryString);
         }
     }
 }

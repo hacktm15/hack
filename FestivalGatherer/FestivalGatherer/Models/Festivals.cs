@@ -1,76 +1,56 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace FestivalGatherer.Models
 {
     public class Festivals : List<Festival>
     {
-        public Festivals(IEnumerable<dynamic> festivals)
+        public Festivals(dynamic festivals, string startDate,string minPriceString,string maxPriceString)
         {
-            foreach (dynamic festival in festivals)
+            foreach (dynamic festival in festivals.events.@event)
             {
-                var performances = festival.performances as IEnumerable<dynamic>;
-                if (performances != null)
+                if (festival.image == null)
                 {
-                    foreach (dynamic performance in performances)
-                    {
-                        var newFestival = new Festival();
-                        newFestival.Name = festival.title;
-                        var memberNames = festival.images.GetDynamicMemberNames() as IEnumerable<string>;
-                        var imageName = memberNames.First();
-                        newFestival.ImagePath = festival.images[imageName].versions.original.url;
-                        newFestival.Location = festival.venue.address;
-                        newFestival.Latitude = festival.latitude.ToString();
-                        newFestival.Longitude = festival.longitude.ToString();
-                        newFestival.Price = performance.price.ToString();
-                        newFestival.StartDate = performance.start;
-                        newFestival.EndDate = performance.end;
-                        newFestival.FestivalUrl = festival.url;
-                        newFestival.Description = festival.description;
-                        Add(newFestival);
-                        break;
-                    }
-                  
+                    continue;
                 }
-              
-            }
-        }
-
-        public Festivals(dynamic festivals, string startDate)
-        {
-            foreach (dynamic festival in festivals)
-            {
-                var performances = festival.performances as IEnumerable<dynamic>;
-                if (performances != null)
+                var startDateTime = DateTime.Parse(startDate);
+                var startDateTimePerformance = DateTime.Parse(festival.start_time);
+                var result = DateTime.Compare(startDateTime, startDateTimePerformance);
+                if (result >= 0)
                 {
-                    foreach (dynamic performance in performances)
-                    {
-                        var startDateTime = DateTime.Parse(startDate);
-                        var startDateTimePerformance = DateTime.Parse(performance.start);
-                        var result=DateTime.Compare(startDateTime, startDateTimePerformance);
-                        if (result >= 0)
-                        {
-                            continue;
-                        }
-                        var newFestival = new Festival();
-                        newFestival.Name = festival.title;
-                        var memberNames = festival.images.GetDynamicMemberNames() as IEnumerable<string>;
-                        var imageName = memberNames.First();
-                        newFestival.ImagePath = festival.images[imageName].versions.original.url;
-                        newFestival.Location = festival.venue.address;
-                        newFestival.Latitude = festival.latitude.ToString();
-                        newFestival.Longitude = festival.longitude.ToString();
-                        newFestival.Price = performance.price.ToString();
-                        newFestival.StartDate = performance.start;
-                        newFestival.EndDate = performance.end;
-                        newFestival.FestivalUrl = festival.url;
-                        newFestival.Description = festival.description;
-                        Add(newFestival);
-                        break;
-                    }
-
+                    continue;
                 }
+                int price = (new Random()).Next(0, 100);
+                if (!string.IsNullOrEmpty(minPriceString))
+                {
+                    int minPrice = int.Parse(minPriceString);
+                    if (minPrice > price)
+                    {
+                        continue;
+                    }
+                }
+                if (!string.IsNullOrEmpty(maxPriceString))
+                {
+                    int maxPrice = int.Parse(maxPriceString);
+                    if (maxPrice < price)
+                    {
+                        continue;
+                    }
+                }
+                string priceString = price.ToString(CultureInfo.InvariantCulture);
+                var newFestival = new Festival();
+                newFestival.Name = festival.title;
+                newFestival.ImagePath = festival.image.url;
+                newFestival.Location = festival.venue_address;
+                newFestival.Latitude = festival.latitude.ToString();
+                newFestival.Longitude = festival.longitude.ToString();
+                newFestival.Price = priceString;
+                newFestival.StartDate = festivals.start_time;
+                newFestival.FestivalUrl = festival.url;
+                newFestival.Description = festival.description;
+                Add(newFestival);
             }
         }
     }

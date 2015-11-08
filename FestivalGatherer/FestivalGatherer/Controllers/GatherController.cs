@@ -16,9 +16,9 @@ namespace FestivalGatherer.Controllers
         [System.Web.Http.HttpGet]
         public HttpResponseMessage Get(DateTime startDate, string minPrice = "", string maxPrice = "")
         {
-            string date = startDate.ToString("yyyy-MM-dd HH:mm:ss");
+            string date = startDate.ToString("yyyy-MM-dd");
             var festivals = Provider.QuerryFestivals(minPrice,maxPrice,date);
-            var myFestivals = new Festivals(festivals, date);
+            var myFestivals = new Festivals(festivals, date,minPrice,maxPrice);
             return new HttpResponseMessage
             {
                 Content = new JsonContent(myFestivals)
