@@ -113,7 +113,7 @@ Left Nav + List + Detail
                 <paper-header-panel class="content-panel" main>
                     <!-- Description -->
                     <paper-material class="content-card selectedFestival" elevation="4">
-                        <h1>Selected Festival : </h1>
+                        <h1>Festival</h1>
                         <br>
                         <h2 class="title">[[selectedFestival.Name]]</h2>
                         <h3 class="location">[[selectedFestival.Location]]</h3>
@@ -124,25 +124,29 @@ Left Nav + List + Detail
                         <p class="description-details">[[selectedFestival.Description]]</p>
                          <div class="price-details">
                             <h1 class="price">[[selectedFestival.Price]] €</h1>
-                            <a href="[[selectedFestival.FestivalUrl]]" target="_blank">Get tickets</a>
+                            <a href="[[selectedFestival.FestivalUrl]]" target="_blank">
+                               <paper-button raised class="fancy" >
+                                Get tickets
+                               </paper-button>
+                           </a>
                          </div>
                     </paper-material>
 
                     <!-- Routes -->
                     <paper-material class="content-card festivalRoutes" elevation="4">
-                        <h1>Routes : </h1>
+                        <h1>Transport</h1>
                         <br>
                         <h1>Hello</h1>
                     </paper-material>
 
                     <!-- Booking -->
                     <paper-material class="content-card festivalBooking" elevation="4">
-                        <h1>Bookings : </h1>
+                        <h1>Bookings</h1>
                         <br>
                         <template is="dom-repeat" items="{{bookings}}">
                             <paper-card heading="[[item.Address]]" class="pink">
                                 <div class="card-content">
-                                    <h2>Rooms : [[item.Beds]]</h2>
+                                    <h2>Bedrooms : [[item.Beds]]</h2>
                                     <ul>
                                         <template is="dom-repeat" items="[[item.Availabilities]]">
                                             <li>Start : [[item.Start]], End : [[item.End]]</li>
@@ -151,7 +155,14 @@ Left Nav + List + Detail
                                 </div>
                                 <div class="card-actions">
                                     <h1 class="price">[[item.Price]] €</h1>
-                                    <a href="[[item.Url]]" target="_blank">Book</a>
+                                    
+                                       <a href="[[item.Url]]" target="_blank">
+                                           <paper-button raised class="fancy" >
+                                             Book
+                                           </paper-button>
+                                         </a>
+                                    
+                                    
                                 </div>
                             </paper-card>
                         </template>
@@ -216,5 +227,5 @@ Left Nav + List + Detail
         });
 
     </script>
-
+    
 </dom-module>
