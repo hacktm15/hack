@@ -2,6 +2,7 @@ package hacktm.haufe;
 
 import hacktm.haufe.initial.BaseRouteBuilder;
 import hacktm.haufe.processors.AirDistanceProcessor;
+import hacktm.haufe.processors.PreFlighProcessor;
 
 import org.apache.camel.Exchange;
 
@@ -19,6 +20,7 @@ public class SkyScannerTrackerRoute extends BaseRouteBuilder {
             .removeHeader(Exchange.HTTP_QUERY)
             .log("will call URL: "+ SKYS_URI_MAPS+"?origin=${header.start}&destination=${header.dest}&key="+SKYS_API_KEY)
             .setHeader(Exchange.CONTENT_TYPE, constant("application/json"))
+            .process(new PreFlighProcessor())
             .setHeader(Exchange.HTTP_URI, simple(SKYS_URI_MAPS+"/RO/EUR/en-GB/${header.start}/${header.dest}/${header.startDate}/${header.destDate}?apiKey="+SKYS_API_KEY))
             .to("jetty:dummy")
       	    .setProperty("price", xpath("/DirectionsResponse/route/leg/distance/text/text()"))

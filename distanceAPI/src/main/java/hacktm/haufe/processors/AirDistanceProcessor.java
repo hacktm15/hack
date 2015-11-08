@@ -29,13 +29,12 @@ public class AirDistanceProcessor implements Processor {
 
 			jsValue = getJSValue("OutboundLeg", jsValue);
 			String departureDate = (String) jsValue.get("DepartureDate");
-			result.put("departureDate", departureDate);
+			result.put("departureDate", departureDate.subSequence(0, 10));
 
 			JSONObject carrierId = getJSValue("CarrierIds", jsValue);
 
 			try {
-				jsValueCarrier = getJSValue("CarriersDto", jsValueCarrier);
-			} catch (ClassCastException ex) {
+
 				JSONArray jsonArray = jsValueCarrier
 						.getJSONArray("CarriersDto");
 
@@ -49,6 +48,14 @@ public class AirDistanceProcessor implements Processor {
 					}
 				}
 
+			} catch (ClassCastException ex) {
+
+				jsValueCarrier = getJSValue("CarriersDto", jsValueCarrier);
+
+				if (carrierId.get("int")
+						.equals(jsValueCarrier.get("CarrierId"))) {
+					result.put("flightCompany", jsValueCarrier.get("Name"));
+				}
 			}
 		}
 		exchange.getOut().setHeader(Exchange.CONTENT_TYPE, "application/json");

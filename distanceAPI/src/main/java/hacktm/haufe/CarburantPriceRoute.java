@@ -1,7 +1,5 @@
 package hacktm.haufe;
 
-import java.net.URLEncoder;
-
 import hacktm.haufe.initial.BaseRouteBuilder;
 import hacktm.haufe.processors.CarburantPriceProcessor;
 
