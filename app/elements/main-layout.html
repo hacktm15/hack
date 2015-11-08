@@ -43,21 +43,27 @@ Left Nav + List + Detail
                 debounce-duration="300">
         </iron-ajax>
 
-        <!-- TODO : this should not be hard coded -->
         <iron-ajax
                 id="ajaxBookings"
-                url="http://cors.io/?u=http://couchfinder.azurewebsites.net/api/find/latitude/longitude/2015-11-11"
+                url=""
                 handle-as="json"
                 on-response="bookingsResponse"
                 debounce-duration="300">
         </iron-ajax>
 
-        <!-- TODO : this should not be hard coded -->
         <iron-ajax
-                id="ajaxFestivals"
-                url="http://cors.io/?u=http://festivalgather.azurewebsites.net/api/gather"
+                id="ajaxRoadRoutes"
+                url=""
                 handle-as="json"
-                on-response="festivalResponse"
+                on-response="festivalRoadResponse"
+                debounce-duration="300">
+        </iron-ajax>
+
+        <iron-ajax
+                id="ajaxAirRoutes"
+                url="http://cors.io/?u=http://akai-docker-host.cloudapp.net:8080/distanceAPI/api/"
+                handle-as="json"
+                on-response="festivalAirResponse"
                 debounce-duration="300">
         </iron-ajax>
 
@@ -136,7 +142,8 @@ Left Nav + List + Detail
                     <paper-material class="content-card festivalRoutes" elevation="4">
                         <h1>Transport</h1>
                         <br>
-                        <h1>Hello</h1>
+                        <h1>Distance by road : {{roadRoute.distance}}</h1>
+                        <h1>Flight options : {{airRoute.flightCompany}}</h1>
                     </paper-material>
 
                     <!-- Booking -->
@@ -203,9 +210,11 @@ Left Nav + List + Detail
             ready: function () {
                 this.festivals = [];
                 this.bookings = [];
+                this.roadRoute = [];
+                this.airRoute = [];
                 this.selectedFestival;
                 this.$.ajaxFestivals.generateRequest();
-                this.$.ajaxBookings.generateRequest();
+                this.$.ajaxRoadRoutes.generateRequest();
             },
 
             // Api for festivals
@@ -220,9 +229,28 @@ Left Nav + List + Detail
                 console.log(request.detail.response);
                 this.bookings = request.detail.response;
             },
+
+            // Api for road routes
+            festivalRoadResponse: function(request) {
+                console.log(request.detail.response);
+                this.roadRoute = request.detail.response;
+            },
+
+            // Api for air routes
+            festivalAirResponse: function(request) {
+                console.log(request.detail.response);
+                this.airRoute = request.detail.response;
+            },
             festivalSelected: function(e) {
                 console.log(e.model.item);
                 this.selectedFestival = e.model.item;
+                var boookingDate = this.selectedFestival.StartDate.split(" ")[0];
+
+                this.$.ajaxBookings.url="http://cors.io/?u=http://couchfinder.azurewebsites.net/api/find/latitude/longitude/" + boookingDate;
+                this.$.ajaxBookings.generateRequest();
+
+                /*this.$.ajaxRoadRoutes.url="http://cors.io/?u=http://akai-docker-host.cloudapp.net:8080/distanceAPI/api/distanceCar?start=Oradea&dest=Timisoara";
+                this.$.ajaxRoadRoutes.generateRequest();*/
             }
         });
 
