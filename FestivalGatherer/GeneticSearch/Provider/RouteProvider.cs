@@ -41,6 +41,8 @@ namespace GeneticSearch.Provider
                   start, stop,startDate,returnDate);
 
             var request = (HttpWebRequest)WebRequest.Create(url);
+            request.Accept = "text/html,application/xhtml+xml,application/xml";
+            request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
             using (var response = (HttpWebResponse)request.GetResponse())
             {
                 Stream receiveStream = response.GetResponseStream();
