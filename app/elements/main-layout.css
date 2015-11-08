@@ -69,3 +69,56 @@ paper-button.fancy {
   background: #42A5F5;
   color: #fff;
 }
+
+
+.content-card{
+  margin:20px;
+  padding: 20px;
+}
+
+#detail-location{
+  color: #42A5F5;
+}
+
+#price{
+  float:left;
+  margin:0;
+  margin-right: 30px;
+}
+#price-details{
+  margin-left: 30px;
+}
+
+#start-date{
+  margin:0;
+  float:left;
+  margin-right: 30px;
+}
+
+#end-date{
+  margin:0;
+}
+
+#description-details{
+  margin:0;
+  margin:20px 0;
+}
+
+.room-list paper-item{
+  background-color:#42A5F5;
+  margin: 0;
+  margin: 10px auto;
+}
+
+.room-booking{
+  display: -webkit-box;
+}
+
+#room-price{
+  margin-right: 50px;
+  font-size: 1.6em;
+}
+
+#title{
+  margin-top:10px;
+}

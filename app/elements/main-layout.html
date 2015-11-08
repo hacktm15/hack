@@ -19,6 +19,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-material/paper-material.html">
 
 <!--
 
@@ -92,7 +93,45 @@ Left Nav + List + Detail
                 </paper-header-panel>
 
                 <paper-header-panel class="content-panel" main>
-
+                   <paper-material id ="details" class="content-card" elevation="4">
+                    <div id"container-details">
+                       <h1 id="title">Scottish Artists 1750-1900: From Caledonia to the Continent</h1>
+                        <h3 id="detail-location">The Queen's Gallery, Palace of Holyroodhouse, Canongate, The Royal Mile, Edinburgh,  </h3>
+                        <div id="date-details">
+                          <h3 id="start-date">2015-11-08 09:30:00 </h3>
+                          <h3 id="end-date"> 2015-11-08 15:30:00</h3>
+                        </div>
+                       <p id="description-details">This is the first ever exhibition devoted to Scottish 
+                       art in the Royal Collection and brings together paintings, drawings and miniatures collected by 
+                       monarchs from George III to Queen Victoria.\n\nIt includes the work of painters who were born in Scotland 
+                       and travelled abroad, such as Allan Ramsay and Sir David Wilkie, and of those whose inspiration remained 
+                       firmly rooted in their native land, such as Alexander Nasmyth and James Giles.<br> <br> In particular, the exhibition
+                       highlights the importance and influence of artists whose work was shaped by the ideas of the Scottish Enlightenment.</p>
+                         <div id="price-details">
+                           <h1 id="price">9.0€</h1>
+                            <paper-button id="get-tickets" raised class="fancy">Get tickets</paper-button>
+                         </div>
+                     </div>
+                    </paper-material>
+      
+                      <paper-material class="content-card" elevation="4">
+                        <paper-item class="room-booking">
+                          <div >
+                            <div id="room-price">9.0€</div>
+                            <div id="beds-available">Beds: 2</div>
+                            <div id="availability">Availability</div>
+                            <paper-button id="book-now" raised class="fancy">Book now</paper-button>
+                          </div>
+                        </paper-item>
+                     
+                        <paper-item class="room-booking">test1</paper-item>
+                       
+                        <paper-item class="room-booking">test1</paper-item>
+                      
+                        <paper-item class="room-booking">test1</paper-item>
+                        
+                    </paper-material>
+                    
                     <!-- Main Toolbar -->
                     <paper-toolbar>
                         <paper-icon-button icon="arrow-back" list-toggle></paper-icon-button>
