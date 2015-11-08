@@ -1,18 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Data.Common.CommandTrees;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using FestivalTracker.Utilities.Utilities;
+using LookingForGroup.Providers;
+using LookingForGroup.ViewModels;
 
 namespace LookingForGroup.Controllers
 {
-    public class ValuesController : ApiController
+    public class PartyController : ApiController
     {
         // GET api/values
-        public IEnumerable<string> Get()
+        [HttpPost]
+        public HttpResponseMessage Post(GroupViewModel viewModel)
         {
-            return new string[] { "value1", "value2" };
+            using (var provider = new Provider())
+            {
+                var result = provider.CreateGroup(viewModel);
+                return new HttpResponseMessage
+                {
+                    Content = new JsonContent(result)
+                };
+            }
         }
 
         // GET api/values/5

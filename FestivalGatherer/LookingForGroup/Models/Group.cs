@@ -1,15 +1,19 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace LookingForGroup.Models
 {
     public class Group
     {
+        [Key]
+        public int GroupId { get; set; }
         public string Description { get; set; }
         public bool TransportBooked { get; set; }
         public bool RoomBooked { get; set; }
         public DateTime LimitDate { get; set; }
         public string FestivalId { get; set; }
-        public string GroupSize { get; set; }
+        public string FestivalName { get; set; }
+        public int GroupSize { get; set; }
         public string RoomId { get; set; }
         public string GroupName { get; set; }
         public override bool Equals(object obj)

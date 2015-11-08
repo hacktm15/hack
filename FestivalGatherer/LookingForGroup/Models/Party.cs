@@ -1,15 +1,16 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace LookingForGroup.Models
 {
     public class Party
     {
-        public string PartyId { get; set; }
+        [Key]
+        public int PartyId { get; set; }
         public string Password { get; set; }
         public virtual Group GroupInfo { get; set; }
         public virtual Member Leader { get; set; }
         public virtual List<Member> PartyMembers { get; set; }
-        // override object.Equals
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
@@ -24,7 +25,7 @@ namespace LookingForGroup.Models
 
         public override int GetHashCode()
         {
-            return (PartyId != null ? PartyId.GetHashCode() : 0);
+            return PartyId.GetHashCode();
         }
     }
 }

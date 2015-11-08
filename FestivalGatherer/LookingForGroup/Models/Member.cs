@@ -1,9 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace LookingForGroup.Models
 {
     public class Member
     {
+        [Key]
+        public int MemberId { get; set; }
         public virtual List<Group> Groups { get; set; }
         public string EmailAddress { get; set; }
         public override bool Equals(object obj)
