@@ -25,12 +25,26 @@ paper-toolbar {
 
 .list {
   padding: 0;
+  background-color: #42A5F5;
 }
 
 .list paper-item {
-  height: 80px;
-  border-bottom: 1px solid #dedede;
-  background-color: #fafafa;
+  height: 280px;
+  overflow: hidden;
+  position: relative;
+  display: block;
+  padding: 0;
+  margin-bottom: 6px;
+}
+
+.list paper-item-body {
+    width: 100%;
+    display: block;
+}
+
+.list paper-item img{
+    width: 100%;
+    min-width: 400px;
 }
 
 .main-drawer-panel:not([narrow]) [list-toggle] {
@@ -39,4 +53,14 @@ paper-toolbar {
 
 .content {
   height: 3000px;
+}
+
+.legend {
+    position: absolute;
+    background: rgba(0,0,0,0.6);
+    bottom: 0;
+    color: white;
+    height: 50px;
+    padding: 0 16px;
+    left: 0; right: 0;
 }
