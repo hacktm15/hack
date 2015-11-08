@@ -1,4 +1,5 @@
 ﻿using System.Data.Common.CommandTrees;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -28,9 +29,12 @@ namespace LookingForGroup.Controllers
             using (var provider = new Provider())
             {
                 var result = provider.QuerryByFestival(festivalId);
+                var join = from party in result
+                    orderby party.PartyMembers.Count
+                    select new {party.GroupInfo, party.Leader.EmailAddress, party.PartyMembers.Count};
                 return new HttpResponseMessage
                 {
-                    Content = new JsonContent(result)
+                    Content = new JsonContent(join)
                 };
             }
         }
