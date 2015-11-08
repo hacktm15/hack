@@ -9,5 +9,5 @@ Why are we different from others seller sites? We don`t sell, we just gather inf
 
 What else? We offer the possibility to merge with other travelers who share your ideas about a good party. Go together by car, split the fuel, or stay together, share the room and so on, we can help you find these "strangers" for you if you leave Us a contact email.
 
-We used C#, Java, javascript, html, polymer, deployment on azure platform, with docker.
+We used C#, Java, javascript, HTML, CSS,  polymer, deployment on azure platform, with docker.
 
