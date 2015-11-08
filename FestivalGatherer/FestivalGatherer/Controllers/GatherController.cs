@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections;
-using System.Globalization;
-using System.Linq;
 using System.Net.Http;
-using System.Web.Helpers;
 using System.Web.Http;
 using FestivalGatherer.DataProviders;
 using FestivalGatherer.Models;
@@ -14,7 +10,7 @@ namespace FestivalGatherer.Controllers
     public class GatherController : ApiController
     {
         
-        [System.Web.Http.HttpGet]
+        [HttpGet]
         public HttpResponseMessage Get(DateTime startDate, string minPrice = "", string maxPrice = "")
         {
             string date = startDate.ToString("yyyy-MM-dd");
