@@ -14,7 +14,12 @@ namespace GeneticSearch
                 routeTemplate: "api/{controller}/{start}/{stop}",
                 defaults: new { start = RouteParameter.Optional,stop=RouteParameter.Optional }
             );
-
+            config.Routes.MapHttpRoute(
+                name: "Flight",
+                routeTemplate: "api/{controller}/{start}/{stop}/{startDate}/{returnDate}",
+                defaults: new { start = RouteParameter.Optional,stop=RouteParameter.Optional,startDate=RouteParameter.Optional,returnDate=RouteParameter.Optional }
+            );
+            
             // Uncomment the following line of code to enable query support for actions with an IQueryable or IQueryable<T> return type.
             // To avoid processing unexpected or malicious queries, use the validation settings on QueryableAttribute to validate incoming queries.
             // For more information, visit http://go.microsoft.com/fwlink/?LinkId=279712.
