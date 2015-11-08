@@ -112,12 +112,6 @@ paper-button.fancy {
 
 .selectedFestival .start-date {
     margin: 0;
-    float: left;
-    margin-right: 30px;
-}
-
-.selectedFestival .end-date {
-    margin: 0;
 }
 
 .selectedFestival .description-details{
