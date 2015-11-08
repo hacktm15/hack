@@ -76,19 +76,6 @@ paper-button.fancy {
   padding: 20px;
 }
 
-#detail-location{
-  color: #42A5F5;
-}
-
-#price{
-  float:left;
-  margin:0;
-  margin-right: 30px;
-}
-#price-details{
-  margin-left: 30px;
-}
-
 #start-date{
   margin:0;
   float:left;
@@ -97,11 +84,6 @@ paper-button.fancy {
 
 #end-date{
   margin:0;
-}
-
-#description-details{
-  margin:0;
-  margin:20px 0;
 }
 
 .room-list paper-item{
@@ -119,6 +101,37 @@ paper-button.fancy {
   font-size: 1.6em;
 }
 
-#title{
-  margin-top:10px;
+/* Style for selected festival Description*/
+.selectedFestival .title {
+  margin-top: 10px;
 }
+
+.selectedFestival .location {
+    color: #42A5F5;
+}
+
+.selectedFestival .start-date {
+    margin: 0;
+    float: left;
+    margin-right: 30px;
+}
+
+.selectedFestival .end-date {
+    margin: 0;
+}
+
+.selectedFestival .description-details{
+    margin:0;
+    margin:20px 0;
+}
+
+.selectedFestival .price{
+    float:left;
+    margin:0;
+    margin-right: 30px;
+}
+.selectedFestival .price-details{
+    margin-left: 30px;
+}
+
+/* Style for selected festival Booking*/
