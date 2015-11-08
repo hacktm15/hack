@@ -169,6 +169,8 @@ Left Nav + List + Detail
 
                     <!-- Routes -->
                     <paper-material class="content-card festivalRoutes" elevation="4">
+                        <p>These are tests :</p>
+
                         <h1>Transport</h1>
                         <br>
                         <h1>Distance by road : {{roadRoute.distance}}</h1>
@@ -176,7 +178,6 @@ Left Nav + List + Detail
 
                         <google-map></google-map>
                         <google-map-directions start-address="New York" end-address="{{selectedFestival.City}}" ></google-map-directions>
-                        <p>Test</p>
                     </paper-material>
 
                     <!-- Main Toolbar -->
@@ -265,8 +266,8 @@ Left Nav + List + Detail
                 this.$.ajaxBookings.url="http://cors.io/?u=http://couchfinder.azurewebsites.net/api/find/latitude/longitude/" + boookingDate;
                 this.$.ajaxBookings.generateRequest();
 
-                /*this.$.ajaxRoadRoutes.url="http://cors.io/?u=http://akai-docker-host.cloudapp.net:8080/distanceAPI/api/distanceCar?start=Oradea&dest=Timisoara";
-                this.$.ajaxRoadRoutes.generateRequest();*/
+                this.$.ajaxRoadRoutes.url="http://cors.io/?u=http://festivaldistance.azurewebsites.net/api/route/Timisoara/Oradea";
+                this.$.ajaxRoadRoutes.generateRequest();
             }
         });
 
