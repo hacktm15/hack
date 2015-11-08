@@ -11,5 +11,7 @@
         public string ImagePath { get; set; }
         public string FestivalUrl { get; set; }
         public string Description { get; set; }
+        public string City { get; set; }
+        public string StopDate { get; set; }
     }
 }

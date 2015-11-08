@@ -9,7 +9,7 @@ namespace FestivalGatherer.Models
     {
         public Festivals(dynamic festivals, string startDate,string minPriceString,string maxPriceString)
         {
-            foreach (dynamic festival in festivals.events.@event)
+            foreach (dynamic festival in festivals)
             {
                 if (festival.image == null ||  festival.image.medium==null||festival.image.medium.url==null)
                 {
@@ -43,13 +43,15 @@ namespace FestivalGatherer.Models
                 var newFestival = new Festival();
                 newFestival.Name = festival.title;
                 newFestival.ImagePath = festival.image.medium.url;
-                newFestival.Location = festival.venue_address;
+                newFestival.ImagePath = newFestival.ImagePath.Replace("medium", "edpborder500");
                 newFestival.Latitude = festival.latitude.ToString();
                 newFestival.Longitude = festival.longitude.ToString();
                 newFestival.Price = priceString;
                 newFestival.StartDate = festival.start_time;
+                newFestival.StopDate = festival.stop_time ?? newFestival.StartDate;
                 newFestival.FestivalUrl = festival.url;
                 newFestival.Description = festival.description;
+                newFestival.City = festival.city_name;
                 Add(newFestival);
             }
         }

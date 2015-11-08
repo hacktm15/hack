@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Globalization;
 using System.Linq;
 using System.Net.Http;
@@ -17,11 +18,13 @@ namespace FestivalGatherer.Controllers
         public HttpResponseMessage Get(DateTime startDate, string minPrice = "", string maxPrice = "")
         {
             string date = startDate.ToString("yyyy-MM-dd");
-            var festivals = Provider.QuerryFestivals(minPrice,maxPrice,date);
-            var myFestivals = new Festivals(festivals, date,minPrice,maxPrice);
+            var musicFestivals = Provider.QuerryFestivals(minPrice, maxPrice, date, "music").events.@event;
+            var festivals = Provider.QuerryFestivals(minPrice,maxPrice,date,"festival").events.@event;
+            var myFestivals = new Festivals(festivals, date, minPrice, maxPrice);
+            var myMusicFestivals = new Festivals(musicFestivals, date, minPrice, maxPrice);
             return new HttpResponseMessage
             {
-                Content = new JsonContent(myFestivals)
+                Content = new JsonContent(myFestivals.Concat(myMusicFestivals))
             };
         }
         

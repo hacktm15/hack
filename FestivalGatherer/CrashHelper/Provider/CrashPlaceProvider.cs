@@ -10,14 +10,11 @@ namespace CrashHelper.Provider
     {
         public static dynamic Querry(string latitude, string longitude, Int32 date)
         {
-            //var url =
-            //    string.Format(
-            //        "https://zilyo.p.mashape.com/search?resultsperpage=5&isinstantbook=false&stimestamp={0}&latitude={1}&longitude={2}&provider=airbnb%2Chousetrip",
-            //        date, latitude, longitude);
             var url =
-               string.Format(
-                   "https://zilyo.p.mashape.com/search?resultsperpage=5&isinstantbook=false&stimestamp={0}&latitude=55.943&longitude=-3.1859&provider=airbnb%2Chousetrip",
-                   date, latitude, longitude);
+                string.Format(
+                    "https://zilyo.p.mashape.com/search?resultsperpage=5&isinstantbook=false&stimestamp={0}&latitude={1}&longitude={2}&provider=airbnb%2Chousetrip",
+                    date, latitude, longitude);
+           
             var request = (HttpWebRequest)WebRequest.Create(url);
             request.Accept = "application/json";
             request.Headers.Add("X-Mashape-Key", "C3PIdr9Afvmsh31xOxeeXL8rGF1wp1kyBmLjsnZpnHcbxNFQkp");
