@@ -8,6 +8,7 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
+<script src="../bower_components/webcomponentsjs/webcomponents.js"></script>
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/paper-drawer-panel/paper-drawer-panel.html">
@@ -21,6 +22,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../bower_components/google-map/google-map.html">
+<link rel="import" href="../bower_components/google-map/google-map-directions.html">
 
 <!--
 
@@ -135,14 +138,6 @@ Left Nav + List + Detail
                          </div>
                     </paper-material>
 
-                    <!-- Routes -->
-                    <paper-material class="content-card festivalRoutes" elevation="4">
-                        <h1>Transport</h1>
-                        <br>
-                        <h1>Distance by road : {{roadRoute.distance}}</h1>
-                        <h1>Flight options : {{airRoute.flightCompany}}</h1>
-                    </paper-material>
-
                     <!-- Booking -->
                     <paper-material class="content-card festivalBooking" elevation="4">
                         <h1>Bookings</h1>
@@ -170,6 +165,18 @@ Left Nav + List + Detail
                                 </div>
                             </paper-card>
                         </template>
+                    </paper-material>
+
+                    <!-- Routes -->
+                    <paper-material class="content-card festivalRoutes" elevation="4">
+                        <h1>Transport</h1>
+                        <br>
+                        <h1>Distance by road : {{roadRoute.distance}}</h1>
+                        <h1>Flight options : {{airRoute.flightCompany}}</h1>
+
+                        <google-map></google-map>
+                        <google-map-directions start-address="New York" end-address="{{selectedFestival.City}}" ></google-map-directions>
+                        <p>Test</p>
                     </paper-material>
 
                     <!-- Main Toolbar -->
@@ -212,6 +219,11 @@ Left Nav + List + Detail
                 this.selectedFestival;
                 this.$.ajaxFestivals.generateRequest();
                 this.$.ajaxRoadRoutes.generateRequest();
+
+                var gmap = document.querySelector('google-map');
+                gmap.addEventListener('api-load', function(e) {
+                    document.querySelector('google-map-directions').map = this.map;
+                });
             },
 
             // Api for festivals
@@ -219,6 +231,13 @@ Left Nav + List + Detail
                 console.log(request.detail.response);
                 this.festivals = request.detail.response;
                 this.selectedFestival = this.festivals[0];
+
+                // duplicated code :(
+                var boookingDate = this.selectedFestival.StartDate.split(" ")[0];
+
+                this.$.ajaxBookings.url="http://cors.io/?u=http://couchfinder.azurewebsites.net/api/find/latitude/longitude/" + boookingDate;
+                this.$.ajaxBookings.generateRequest();
+
             },
 
             // Api for boookings
@@ -252,5 +271,6 @@ Left Nav + List + Detail
         });
 
     </script>
-    
+
 </dom-module>
+
