@@ -11,8 +11,9 @@ public class CarburantPriceProcessor implements Processor {
 //		  int lastIndexOf = exchange.getIn().toString().lastIndexOf("Super 95 in Europe");
 //		  String sdf= exchange.getIn().toString().substring(lastIndexOf, lastIndexOf+100);
 		  
-//		  String string = exchange.getIn().toString();
-//		  
+		  String string = exchange.getIn().toString();
+//		  Document doc = Jsoup.parse(string);
+////		  
 //		  exchange.getIn().toString().split("Romania");
 //		
 //		String distance=((net.sf.saxon.dom.DOMNodeList) exchange.getProperty("distance")).item(0).getNodeValue();
