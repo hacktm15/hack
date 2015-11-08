@@ -11,3 +11,4 @@ What else? We offer the possibility to merge with other travelers who share your
 
 We used C#, Java, javascript, HTML, CSS,  polymer, deployment on azure platform, with docker.
 
+You can find the live website @ http://festivaltracker.azurewebsites.net/
