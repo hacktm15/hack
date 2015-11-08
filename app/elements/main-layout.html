@@ -77,7 +77,7 @@ Left Nav + List + Detail
                     <paper-menu class="list" on-iron-activate="_listTap">
 
                         <template is="dom-repeat" items="{{festivals}}">
-                            <paper-item>
+                            <paper-item on-tap="festivalSelected">
                                 <paper-item-body two-line class="layout center">
                                     <img class="list-img" src="{{item.ImagePath}}">
                                     <div secondary class="legend horizontal layout center">
@@ -99,7 +99,17 @@ Left Nav + List + Detail
                     </paper-toolbar>
 
                     <!-- Main Content -->
-                    <div class="content"></div>
+                    <div class="content">
+
+                        <div hidden$="{{selectedFestival != null}}">
+                        Festival Location:
+                        {{selectedFestival.Location}}
+                        </div>
+                        <div hidden$="{{selectedFestival === null}}">
+                        Please select a festival.
+                        </div>
+
+                    </div>
 
                 </paper-header-panel>
 
@@ -126,11 +136,16 @@ Left Nav + List + Detail
 
             ready: function () {
                 this.festivals = [];
+                this.selectedFestival;
                 this.$.ajax.generateRequest();
             },
             hresponse: function(request) {
                 console.log(request.detail.response);
                 this.festivals = request.detail.response;
+            },
+            festivalSelected: function(e) {
+                console.log(e.model.item);
+                this.selectedFestival = e.model.item;
             }
         });
 
