@@ -47,7 +47,7 @@ namespace FestivalGatherer.Models
                 newFestival.Latitude = festival.latitude.ToString();
                 newFestival.Longitude = festival.longitude.ToString();
                 newFestival.Price = priceString;
-                newFestival.StartDate = festivals.start_time;
+                newFestival.StartDate = festival.start_time;
                 newFestival.FestivalUrl = festival.url;
                 newFestival.Description = festival.description;
                 Add(newFestival);
