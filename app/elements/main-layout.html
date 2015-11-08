@@ -143,7 +143,7 @@ Left Nav + List + Detail
                         <h1>Bookings</h1>
                         <br>
                         <template is="dom-repeat" items="{{bookings}}">
-                            <paper-card heading="[[item.Address]]" class="pink">
+                            <paper-card heading="[[item.Address]]" elevation="5">
                                 <div class="card-content">
                                     <h2>Bedrooms : [[item.Beds]]</h2>
                                     <ul>
@@ -263,7 +263,8 @@ Left Nav + List + Detail
                 this.selectedFestival = e.model.item;
                 var boookingDate = this.selectedFestival.StartDate.split(" ")[0];
 
-                this.$.ajaxBookings.url="http://cors.io/?u=http://couchfinder.azurewebsites.net/api/find/latitude/longitude/" + boookingDate;
+                this.$.ajaxBookings.url="http://cors.io/?u=http://couchfinder.azurewebsites.net/api/find/"
+                        + [[selectedFestival.Latitude]] + "/" + [[selectedFestival.Longitude]] + "/" + boookingDate;
                 this.$.ajaxBookings.generateRequest();
 
                 this.$.ajaxRoadRoutes.url="http://cors.io/?u=http://festivaldistance.azurewebsites.net/api/route/Timisoara/Oradea";

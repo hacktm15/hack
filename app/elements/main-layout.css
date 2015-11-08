@@ -131,6 +131,14 @@ paper-button.fancy {
 
 /* Style for selected festival Booking*/
 
+paper-card {
+    margin : 16px;
+}
+
+paper-card .card-content {
+    background: rgba(66,165, 245, 0.08);
+}
+
 google-map {
     width: 100%;
     height: 300px;
