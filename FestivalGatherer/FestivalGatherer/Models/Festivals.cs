@@ -24,11 +24,12 @@ namespace FestivalGatherer.Models
                         newFestival.Latitude = festival.latitude.ToString();
                         newFestival.Longitude = festival.longitude.ToString();
                         newFestival.Price = performance.price.ToString();
-                        var startDate = performance.start;
-                        var endDate = performance.end;
-                        newFestival.StartDate = startDate;
-                        newFestival.EndDate = endDate;
+                        newFestival.StartDate = performance.start;
+                        newFestival.EndDate = performance.end;
+                        newFestival.FestivalUrl = festival.url;
+                        newFestival.Description = festival.description;
                         Add(newFestival);
+                        break;
                     }
                   
                 }
@@ -64,7 +65,9 @@ namespace FestivalGatherer.Models
                         newFestival.StartDate = performance.start;
                         newFestival.EndDate = performance.end;
                         newFestival.FestivalUrl = festival.url;
+                        newFestival.Description = festival.description;
                         Add(newFestival);
+                        break;
                     }
 
                 }

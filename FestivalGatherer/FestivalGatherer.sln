@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrashHelper", "CrashHelper\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FestivalTracker.Utilities", "FestivalTracker.Utilities\FestivalTracker.Utilities.csproj", "{0D6C1E23-2B8A-4538-A2A1-53EB2D26F210}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LookingForGroup", "LookingForGroup\LookingForGroup.csproj", "{615BFBA8-B918-4B2D-B5C4-FBA48B1005C3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{0D6C1E23-2B8A-4538-A2A1-53EB2D26F210}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D6C1E23-2B8A-4538-A2A1-53EB2D26F210}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D6C1E23-2B8A-4538-A2A1-53EB2D26F210}.Release|Any CPU.Build.0 = Release|Any CPU
+		{615BFBA8-B918-4B2D-B5C4-FBA48B1005C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{615BFBA8-B918-4B2D-B5C4-FBA48B1005C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{615BFBA8-B918-4B2D-B5C4-FBA48B1005C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{615BFBA8-B918-4B2D-B5C4-FBA48B1005C3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
