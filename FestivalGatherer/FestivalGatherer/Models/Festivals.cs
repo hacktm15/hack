@@ -42,13 +42,13 @@ namespace FestivalGatherer.Models
                 string priceString = price.ToString(CultureInfo.InvariantCulture);
                 var newFestival = new Festival();
                 newFestival.Name = festival.title;
-                newFestival.ImagePath = festival.image.url;
+                newFestival.ImagePath = festival.image.medium.url;
                 newFestival.Location = festival.venue_address;
                 newFestival.Latitude = festival.latitude.ToString();
                 newFestival.Longitude = festival.longitude.ToString();
                 newFestival.Price = priceString;
                 newFestival.StartDate = festival.start_time;
-                newFestival.FestivalUrl = festival.image.medium.url;
+                newFestival.FestivalUrl = festival.url;
                 newFestival.Description = festival.description;
                 Add(newFestival);
             }
